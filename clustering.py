@@ -52,8 +52,14 @@ def kmeans(data, k):
     * labels - numpy array of size n, where each entry is the predicted label (cluster number)
     * centroids - numpy array of shape (k, 2), centroid for each cluster.
     """
-    pass
-    # return labels, centroids
+    centroids = choose_initial_centroids(data, k)
+    prev_cent = []
+    labels = []
+    while not np.array_equal(prev_cent, centroids):
+        prev_cent = centroids
+        labels = assign_to_clusters(data, centroids)
+        centroids = recompute_centroids(data, labels, k)
+    return labels, centroids
 
 
 def visualize_results(data, labels, centroids, path):
