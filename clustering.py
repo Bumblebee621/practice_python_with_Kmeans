@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 np.random.seed(2)
-
+from data import load_data
 
 def add_noise(data):
     """
@@ -35,8 +35,12 @@ def transform_data(df, features):
     :param features: list of 2 features from the dataframe
     :return: transformed data as numpy array of shape (n, 2)
     """
-    pass
-    # return data
+    data = df[features].to_numpy
+    minimum = np.min(data, axis=0)
+    maximum = np.max(data, axis=0)
+    data = (data - minimum)/(maximum - minimum)
+    data = add_noise(data)
+    return data
 
 
 def kmeans(data, k):
@@ -69,9 +73,9 @@ def dist(x, y):
     Euclidean distance between vectors x, y
     :param x: numpy array of size n
     :param y: numpy array of size n
-    :return: the euclidean distance
+    :return: the Euclidean distance
     """
-    pass
+    return np.linalg.norm(x-y)
     # return distance
 
 
