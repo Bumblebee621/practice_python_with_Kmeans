@@ -91,10 +91,6 @@ def assign_to_clusters(data, centroids):
     :param centroids: current centroids as numpy array of shape (k, 2)
     :return: numpy array of size n
     """
-
-
-
-
     diffs = dist(data[:,np.newaxis,:], centroids[np.newaxis,:,:],2)
     labels = np.argmin(diffs,axis=1)
     return labels
@@ -109,9 +105,5 @@ def recompute_centroids(data, labels, k):
     :return: numpy array of shape (k, 2)
     """
     centroids = np.array([data[labels == i].mean() for i in range(k)])
-
-    for i in range(k):
-        cluster = data.where(labels == i)
-        centroids[i] = np.mean(cluster)
     return centroids
 
